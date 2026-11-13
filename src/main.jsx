@@ -94,8 +94,15 @@ function Login({ onLogin }) {
 }
 
 function Sidebar({ page, setPage, open, close, logout }) {
+  useEffect(() => {
+    if (!open) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = previous; };
+  }, [open]);
   return <aside className={`sidebar ${open ? 'mobile-open' : ''}`}>
     <div className="sidebar-brand"><Logo compact/><button className="mobile-close" aria-label="Fechar menu" onClick={close}><X size={22}/></button></div>
+    <div className="sidebar-scroll">
     <div className="plant-selector"><div><span className="factory-mark"><Factory size={17}/></span><div><small>UNIDADE</small><strong>Fábrica de Braga</strong></div></div><ChevronDown size={16}/></div>
     <nav className="main-nav">
       <span className="nav-heading">OPERAÇÃO</span>
@@ -105,8 +112,11 @@ function Sidebar({ page, setPage, open, close, logout }) {
       <button className={page==='teams'?'active':''} onClick={()=>{setPage('teams');close();}}><UsersRound size={19}/><span>Equipas</span></button>
       <button className={page==='reports'?'active':''} onClick={()=>{setPage('reports');close();}}><BarChart3 size={19}/><span>Relatórios</span></button>
     </nav>
-    <div className="sidebar-bottom">
+    <div className="sidebar-tools">
       <button><CircleHelp size={19}/>Centro de ajuda</button><button><Settings size={19}/>Configurações</button>
+    </div>
+    </div>
+    <div className="sidebar-bottom">
       <div className="sidebar-user"><div className="avatar">MC</div><div><strong>Miguel Costa</strong><small>Gestor de produção</small></div><button onClick={logout} title="Terminar sessão"><LogOut size={18}/></button></div>
     </div>
   </aside>

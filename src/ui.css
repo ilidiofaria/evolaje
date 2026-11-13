@@ -69,19 +69,37 @@
   .trend { font-size: var(--text-caption); padding: 4px 8px; }
 
   /* Navigation and the top bar share the same control and text scale. */
-  .sidebar-brand { height: 88px; flex-shrink: 0; }
+  .sidebar { height: 100dvh; overflow: hidden; }
+  .sidebar-brand { height: 72px; flex-shrink: 0; }
   .sidebar-brand .logo { width: 170px; }
-  .plant-selector { padding: 12px; margin: 16px 12px; flex-shrink: 0; }
+  .sidebar-scroll {
+    flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden;
+    display: flex; flex-direction: column;
+    overscroll-behavior-y: contain;
+    scrollbar-width: thin; scrollbar-color: #52595d transparent;
+  }
+  .sidebar-scroll::-webkit-scrollbar { width: 5px; }
+  .sidebar-scroll::-webkit-scrollbar-thumb { background: #52595d; border-radius: 8px; }
+  .sidebar-scroll::-webkit-scrollbar-track { background: transparent; }
+  .plant-selector { padding: 8px 12px; margin: 8px 12px; flex-shrink: 0; }
   .plant-selector strong { font-size: 13px; }
   .plant-selector small, .nav-heading { font-size: var(--text-caption); letter-spacing: .07em; }
-  .nav-heading { color: #9ba2a6; padding: 12px; }
-  .main-nav button, .sidebar-bottom > button { min-height: 44px; height: auto; padding: 10px 12px; font-size: 13px; gap: 10px; }
+  .main-nav { flex: none; overflow: visible; padding: 0 10px 8px; }
+  .nav-heading, .nav-heading.second { color: #9ba2a6; padding: 4px 12px; margin: 0; line-height: 16px; }
+  .main-nav button, .sidebar-tools > button {
+    width: 100%; height: 44px; min-height: 44px; padding: 0 12px; margin: 0;
+    font-size: 13px; gap: 10px; display: flex; align-items: center;
+    border: 0; border-radius: 6px; background: none; color: #959b9f; text-align: left;
+  }
+  .sidebar-tools { flex-shrink: 0; margin-top: auto; padding: 8px 10px; border-top: 1px solid #292c2e; }
+  .sidebar-tools > button { height: 36px; min-height: 36px; }
+  .sidebar-tools > button:hover { background: #242729; color: #fff; }
   .main-nav button em { font-size: 12px; min-width: 24px; height: 22px; }
-  .sidebar-user { gap: 8px; padding: 14px 2px 2px; }
+  .sidebar-user { gap: 8px; padding: 6px 2px; margin: 0; border-top: 0; }
   .sidebar-user strong { font-size: 13px; }
   .sidebar-user small { font-size: 12px; white-space: normal; color: #a4acb1; }
   .avatar, .mini-avatar { width: 36px; height: 36px; font-size: 12px; flex-shrink: 0; }
-  .sidebar-bottom { flex-shrink: 0; }
+  .sidebar-bottom { flex-shrink: 0; padding: 8px 10px; }
   .topbar { height: 72px; padding: 0 32px; gap: 16px; }
   .topbar-title strong, .topbar-title span, .date-chip strong { font-size: 13px; }
   .topbar-title div { min-width: 0; }
@@ -252,6 +270,7 @@
   .page-heading .heading-actions { align-self: stretch; }
   .heading-actions > button { flex: 1 1 auto; }
   .menu-button, .mobile-search, .mobile-close, .icon-button { min-width: 44px; min-height: 44px; }
+  .sidebar-tools > button { height: 44px; min-height: 44px; }
   .brand-topline > span:last-child { font-size: 12px; }
 }
 @media screen and (max-width: 600px) {
