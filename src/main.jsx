@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import logo from './logo.svg';
 import './styles.css';
+import { ManagementPage } from './management.jsx';
 
 const navItems = [
   { id: 'dashboard', label: 'Visão geral', icon: LayoutDashboard },
@@ -107,9 +108,9 @@ function Sidebar({ page, setPage, open, close, logout }) {
       <span className="nav-heading">OPERAÇÃO</span>
       {navItems.map(item => <button key={item.id} className={page===item.id?'active':''} onClick={()=>{setPage(item.id);close();}}><item.icon size={19}/><span>{item.label}</span>{item.badge && <em>{item.badge}</em>}</button>)}
       <span className="nav-heading second">GESTÃO</span>
-      <button><Boxes size={19}/><span>Stocks e materiais</span></button>
-      <button><UsersRound size={19}/><span>Equipas</span></button>
-      <button><BarChart3 size={19}/><span>Relatórios</span></button>
+      <button className={page==='stocks'?'active':''} onClick={()=>{setPage('stocks');close();}}><Boxes size={19}/><span>Stocks e materiais</span></button>
+      <button className={page==='teams'?'active':''} onClick={()=>{setPage('teams');close();}}><UsersRound size={19}/><span>Equipas</span></button>
+      <button className={page==='reports'?'active':''} onClick={()=>{setPage('reports');close();}}><BarChart3 size={19}/><span>Relatórios</span></button>
     </nav>
     <div className="sidebar-bottom">
       <button><CircleHelp size={19}/>Centro de ajuda</button><button><Settings size={19}/>Configurações</button>
@@ -185,8 +186,8 @@ function App() {
   const [logged,setLogged]=useState(sessionStorage.getItem('evolaje-auth')==='true');
   const [page,setPage]=useState('dashboard'); const [mobile,setMobile]=useState(false); const [selected,setSelected]=useState(null);
   if(!logged)return <Login onLogin={()=>setLogged(true)}/>;
-  const titles={dashboard:'Visão geral',planning:'Planeamento',orders:'Ordens de fabrico',factory:'Chão de fábrica',quality:'Qualidade',maintenance:'Manutenção'};
-  const content={dashboard:<Dashboard goTo={setPage} onSelect={setSelected}/>,planning:<Planning/>,orders:<OrdersPage onSelect={setSelected}/>,factory:<FactoryPage/>,quality:<QualityPage/>,maintenance:<MaintenancePage/>}[page];
+  const titles={dashboard:'Visão geral',planning:'Planeamento',orders:'Ordens de fabrico',factory:'Chão de fábrica',quality:'Qualidade',maintenance:'Manutenção',stocks:'Stocks e materiais',teams:'Equipas',reports:'Relatórios'};
+  const content=['stocks','teams','reports'].includes(page)?<ManagementPage page={page}/>: {dashboard:<Dashboard goTo={setPage} onSelect={setSelected}/>,planning:<Planning/>,orders:<OrdersPage onSelect={setSelected}/>,factory:<FactoryPage/>,quality:<QualityPage/>,maintenance:<MaintenancePage/>}[page];
   return <div className="app-shell"><Sidebar page={page} setPage={setPage} open={mobile} close={()=>setMobile(false)} logout={()=>{sessionStorage.removeItem('evolaje-auth');setLogged(false)}}/><div className="main-shell"><Topbar title={titles[page]} menu={()=>setMobile(true)}/><main className="page-content">{content}</main></div>{mobile&&<div className="mobile-overlay" onClick={()=>setMobile(false)}/>}<OrderDrawer order={selected} close={()=>setSelected(null)}/></div>;
 }
 
