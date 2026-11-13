@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import logo from './logo.svg';
 import './styles.css';
+import './login.css';
 import { ManagementPage } from './management.jsx';
 
 const navItems = [
@@ -54,46 +55,37 @@ function Login({ onLogin }) {
   };
 
   return (
-    <main className="login-page">
-      <section className="login-form-panel">
-        <div className="login-inner">
+    <main className="brand-entry">
+      <section className="brand-stage" aria-label="Evolaje — Estruturas de Betão e Pré-Fabricados">
+        <div className="brand-topline"><span>EVOLAJE</span><span>ESTRUTURAS DE BETÃO<br/>E PRÉ-FABRICADOS</span></div>
+        <div className="brand-architecture" aria-hidden="true">
+          <div className="architecture-grid"/>
+          <div className="concrete-structure"><i className="structural-beam beam-one"/><i className="structural-beam beam-two"/><i className="structural-beam beam-three"/><i className="structural-beam beam-four"/><i className="structural-crossbeam"/><i className="structural-column column-one"/><i className="structural-column column-two"/><i className="structural-column column-three"/></div>
+          <span className="architecture-caption">PRECISÃO NA FORMA. SOLIDEZ NA ESTRUTURA.</span>
+        </div>
+        <div className="brand-statement"><span className="brand-eyebrow">ENGENHARIA EM BETÃO</span><h2>Solidez em <br/>cada <em>detalhe.</em></h2><p>Estruturas que dão forma<br/>ao que vem a seguir.</p></div>
+        <div className="brand-bottomline"><span>ESTRUTURA · PRECISÃO · CONFIANÇA</span><a href="https://evolaje.pt/" target="_blank" rel="noopener noreferrer">Conheça a Evolaje <ChevronRight size={14}/></a></div>
+      </section>
+      <section className="entry-panel" aria-label="Acesso à plataforma">
+        <div className="entry-inner">
           <Logo />
-          <div className="login-copy">
-            <span className="eyebrow"><Sparkles size={14}/> PLATAFORMA DE PRODUÇÃO</span>
-            <h1>Bem-vindo de volta</h1>
-            <p>Acompanhe a fábrica, planeie recursos e decida com dados em tempo real.</p>
+          <div className="entry-copy">
+            <span className="entry-eyebrow">PORTAL DE PRODUÇÃO</span>
+            <h1>Bem-vindo à Evolaje.</h1>
+            <p>O seu espaço de trabalho. <br/>Entre para continuar.</p>
           </div>
           <form onSubmit={submit} className="login-form">
             <label>Email profissional
-              <div className="input-wrap"><UserRound size={18}/><input value={email} onChange={e=>setEmail(e.target.value)} type="email" autoComplete="email" /></div>
+              <div className="input-wrap"><UserRound size={18}/><input value={email} onChange={e=>setEmail(e.target.value)} type="email" autoComplete="email" required /></div>
             </label>
             <label>Palavra-passe
-              <div className="input-wrap"><LockKeyhole size={18}/><input value={password} onChange={e=>setPassword(e.target.value)} type={show ? 'text' : 'password'} autoComplete="current-password" /><button type="button" className="icon-button" onClick={()=>setShow(!show)} aria-label="Mostrar palavra-passe">{show ? <EyeOff size={18}/> : <Eye size={18}/>}</button></div>
+              <div className="input-wrap"><LockKeyhole size={18}/><input value={password} onChange={e=>setPassword(e.target.value)} type={show ? 'text' : 'password'} autoComplete="current-password" required /><button type="button" className="icon-button" onClick={()=>setShow(!show)} aria-label={show?'Ocultar palavra-passe':'Mostrar palavra-passe'} aria-pressed={show}>{show ? <EyeOff size={18}/> : <Eye size={18}/>}</button></div>
             </label>
-            <div className="form-row"><label className="checkbox"><input type="checkbox" defaultChecked/><span>Manter sessão iniciada</span></label><button type="button" className="link-button">Recuperar acesso</button></div>
-            {error && <div className="form-error"><AlertTriangle size={16}/>{error}</div>}
+            {error && <div className="form-error" role="alert"><AlertTriangle size={16}/>{error}</div>}
             <button className="primary login-submit" disabled={loading}>{loading ? <><span className="spinner"/>A entrar…</> : <>Entrar na plataforma <ChevronRight size={18}/></>}</button>
           </form>
-          <div className="demo-note"><ShieldCheck size={17}/><span><strong>Acesso de demonstração</strong><br/>Os dados de acesso já estão preenchidos.</span></div>
-          <p className="login-footer">© 2026 Evolaje · Ambiente seguro</p>
-        </div>
-      </section>
-      <section className="login-visual" aria-label="Resumo da produção">
-        <div className="visual-glow"/>
-        <div className="visual-content">
-          <div className="visual-kicker"><span className="live-dot"/> FÁBRICA EM DIRETO</div>
-          <h2>Da adjudicação à obra.<br/><span>Tudo ligado.</span></h2>
-          <p>Uma visão única sobre pessoas, peças, materiais e capacidade.</p>
-          <div className="visual-board">
-            <div className="board-head"><span>Produção de hoje</span><strong>85%</strong></div>
-            <div className="large-progress"><span style={{width:'85%'}}/></div>
-            <div className="board-grid">
-              <div><small>Peças concluídas</small><strong>126 <em>/ 148</em></strong></div>
-              <div><small>OF em curso</small><strong>14</strong></div>
-              <div><small>Capacidade</small><strong>82%</strong></div>
-            </div>
-          </div>
-          <div className="visual-pills"><span><Check size={15}/> Rastreabilidade</span><span><Check size={15}/> Tempo real</span><span><Check size={15}/> Integração PHC</span></div>
+          <p className="entry-demo">Acesso de demonstração · Credenciais preenchidas</p>
+          <footer className="entry-footer"><span>© {new Date().getFullYear()} Evolaje</span><span>Estruturas de Betão e Pré-Fabricados</span></footer>
         </div>
       </section>
     </main>
