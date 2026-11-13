@@ -19,7 +19,7 @@ export function ManagementPage({page}){
   const [data,setData]=useState(loadData);const [notice,setNotice]=useState('');const [error,setError]=useState('');
   function save(next){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(next));setData(next);setNotice('Registo guardado neste navegador.');setError('');return true;}catch{setError('Não foi possível guardar. Verifique o espaço e as permissões de armazenamento do navegador.');return false;}}
   useEffect(()=>{setNotice('');setError('');},[page]);
-  return <div className="management"><div className="management-demo">Demonstração · Dados partilhados entre estes módulos e guardados neste navegador.</div>{notice&&<div role="status" className="management-notice">{notice}<button onClick={()=>setNotice('')} aria-label="Fechar mensagem"><X size={15}/></button></div>}{error&&<p role="alert" className="form-error">{error}</p>}{page==='stocks'?<Stocks data={data} save={save}/>:page==='teams'?<Teams data={data} save={save}/>:<Reports data={data}/>}</div>;
+  return <div className="management">{notice&&<div role="status" className="management-notice">{notice}<button onClick={()=>setNotice('')} aria-label="Fechar mensagem"><X size={15}/></button></div>}{error&&<p role="alert" className="form-error">{error}</p>}{page==='stocks'?<Stocks data={data} save={save}/>:page==='teams'?<Teams data={data} save={save}/>:<Reports data={data}/>}</div>;
 }
 
 function Stocks({data,save}){
